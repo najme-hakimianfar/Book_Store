@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Book_Store.CoreLayer.DTOs.Orders.OrderDto>
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+    int row = 1;
+}
+
+@using Book_Store.CoreLayer.Utilities
+
+<h2 style="text-align:center;margin:20px">فاکتور</h2>
+
+<hr />
+
+<div align="center">
+    <table align="center" id="customers">
+        <tr>
+            <th style=" text-align: center;">#</th>
+            <th style=" text-align: center;">تصویر</th>
+            <th style=" text-align: center;">عنوان</th>
+            <th style=" text-align: center;">تعدداد</th>
+            <th style=" text-align: center;">قیمت</th>
+            <th style=" text-align: center;">جمع</th>
+            <th style=" text-align: center;">عملیات</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@row</td>
+                <td>
+                    <img src="@Directories.GetBookImage(item.ImageName)" width="50px" />
+                </td>
+                <td>@item.Name</td>
+                <td>@item.Count
+                    <a class="button-up" asp-area="Admin" asp-controller="Order" asp-action="Command"
+                       asp-route-orderDetailId="@item.OrderDetailId" asp-route-command="up">+</a>
+                    <a class="button-down" asp-area="Admin" asp-controller="Order" asp-action="Command"
+                       asp-route-orderDetailId="@item.OrderDetailId" asp-route-command="down">-</a>
+                </td>
+                <td>@item.Price</td>
+                <td>@item.Sum</td>
+                <td>
+
+                    <a class="button-del" asp-area="Admin" asp-controller="Order" asp-action="Delete"
+                       asp-route-orderDetailId="@item.OrderDetailId">حذف</a>
+                </td>
+            </tr>
+            row += 1;
+        }
+        <tr>
+            <td colspan="5" style="text-align:left">جمع کل:</td>
+            <td colspan="2" style="text-align:right">@Model.Sum(s => s.Sum).ToString("#,0ریال")</td>
+        </tr>
+        <tr>
+            <td colspan="6" style="text-align:left"></td>
+            <td colspan="1" style="text-align:right">
+                <a style="text-align:center" class="button-t">تایید وپرداخت</a>
+            </td>
+        </tr>
+    </table>
+</div>
+

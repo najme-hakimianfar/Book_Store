@@ -1,0 +1,85 @@
+﻿@page
+@using Book_Store.CoreLayer.Services.Ctegories
+@using Book_Store.CoreLayer.DTOs.Categories
+@using Book_Store.CoreLayer.Utilities
+@model Book_Store.web.Pages.SearchModel
+@inject ICategoryService _categoryService;
+@{
+    var location = $"/Search?categorySlug={Model.Filter.CategorySlug}";
+    CategoryDto category = null;
+    var search = "";
+    if (!string.IsNullOrWhiteSpace(Model.Filter.CategorySlug))
+    {
+        category = _categoryService.GetCategoryBy(Model.Filter.CategorySlug);
+        if (category != null)
+        {
+            search = category.Title;
+
+        }
+    }
+    else
+    {
+        search = Model.Filter.Name ?? "کتاب ها";
+    }
+    ViewData["Title"] = search;
+}
+
+@if (search != null)
+{
+    <h4>نتایج جستجو برای : @search</h4>
+}
+
+<div class="best-container">
+
+    <div class="best">
+        @foreach (var item in Model.Filter.Books)
+        {
+
+            <div class="item-best">
+                <a asp-page="Book" asp-route-slug="@item.Slug">
+                    <img src="@Directories.GetBookImage(item.ImageName)" alt="@item.Name" width="300px">
+                </a>
+                <a asp-page="Book" asp-route-slug="@item.Slug"><p>@item.Name</p></a>
+                <p>@item.Price</p>
+                <a style="color:#fff;text-align:center" asp-area="Admin" asp-controller="Order" asp-action="AddToCart" asp-route-bookId="@item.BookId" asp-route-location="@location" class="button-i" type="submit">افزودن به سبد</a>
+            </div>
+
+        }
+
+    </div>
+
+</div>
+
+@if (Model.Filter.PageCount > 1)
+{
+    <div class="MyCenter">
+        <div class="MyPagin">
+            @if (Model.Filter.PageId > 1)
+            {
+                <a onclick="changepage(@(Model.Filter.PageId-1))" href="#">قبلی</a>
+
+            }
+            else
+            {
+                <a class="MyPaginDisable" href="javascript:void(0)">قبلی</a>
+            }
+
+            @for (var i = Model.Filter.StartPage; i <= Model.Filter.EndPage; i++)
+            {
+                <a class="@(i==Model.Filter.PageId?"active":null)" onclick="changepage(@i)" href="javascript:void(0)">@i</a>
+
+            }
+
+            @if (Model.Filter.PageCount > Model.Filter.PageId)
+            {
+                <a onclick="changepage(@(Model.Filter.PageId+1))" href="#">بعدی</a>
+
+            }
+            else
+            {
+                <a class="MyPaginDisable" href="javascript:void(0)">بعدی</a>
+            }
+
+        </div>
+    </div>
+}

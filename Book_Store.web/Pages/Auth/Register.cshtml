@@ -1,0 +1,51 @@
+﻿@page
+@model Book_Store.web.Pages.Auth.RegisterModel
+@{
+    Layout = null ;
+    ViewData["Title"] = "عضویت در سایت";
+}
+
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="/css/signup.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container" style="align-items:center;align-content:center">
+        <div class="content" style="align-items:center;align-content:center">
+            <header>
+                <h2>@ViewData["Title"]</h2>
+            </header>
+            <form method="post">
+                <div class="text">
+                    <input type="text" asp-for="FullName" placeholder="نام و نام خانوادگی خود را وارد نمایید">
+                    <span asp-validation-for="FullName" style="color:red;font-size:12px;font-weight:bold"></span>
+                    <input type="text" asp-for="Email" placeholder=" ایمیل خود را وارد نمایید">
+                    <span asp-validation-for="Email" style="color:red;font-size:12px;font-weight:bold"></span>
+                    <input type="text" asp-for="Address" placeholder="آدرس خود را وارد نمایید">
+                    <input type="text" asp-for="Tel" placeholder="موبایل خود را وارد نمایید">
+                    <input type="password" asp-for="Password" placeholder="رمز عبور خود را وارد نمایید">
+                    <span asp-validation-for="Password" style="color:red;font-size:12px;font-weight:bold"></span>
+                </div>
+                <div class="finish">
+                    <button>عضویت</button>
+                </div>
+                <div class="footer">
+                    <a class="fasli" asp-page="../index">صفحه اصلی</a>
+                    قبلا ثبت نام کرده اید؟
+                    <a asp-page="login">ورود</a>
+                </div>
+                <div class="khat">
+                    <hr class="hasli" />
+                    <hr class="hozv" />
+                </div>
+            </form>
+        </div>
+        @*<script src="/js/jquery.min.js"></script>
+        <partial name="_ValidationScriptsPartial" />*@        
+    </div>
+</body>
+</html>

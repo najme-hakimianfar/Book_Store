@@ -1,0 +1,47 @@
+﻿@page
+@model Book_Store.web.Pages.Auth.LoginModel
+@{
+    Layout = null;
+}
+
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود-خرید کتاب</title>
+    <link href="/css/signin.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <header>
+                <h2>ورود به حساب کاربری</h2>
+            </header>
+            <form method="post">
+                <div class="text">
+                    <input class="firstin" type="text" placeholder="ایمیل خود را وارد نمایید" asp-for="Email">
+                    <span asp-validation-for="Email" style="color:red;font-size:12px;font-weight:bold"></span>
+
+                    <input type="password" placeholder="رمز عبور خود را وارد نمایید" asp-for="Password">
+                    <span asp-validation-for="Password" style="color:red;font-size:15px;font-weight:bold"></span>
+                </div>
+                <div class="finish">
+                    <button>ورود به سامانه</button>
+                </div>
+                <div class="footer">
+                    <a class="fasli" asp-page="../index">صفحه اصلی</a>
+                    حساب کاربری ندارید؟
+                    <a asp-page="register">عضویت</a>
+                </div>
+                <div class="khat">
+                    <hr class="hasli" />
+                    <hr class="hozv" />
+                </div>
+            </form>
+        </div>
+        @*<script src="/js/jquery.min.js"></script>
+       <partial name="_ValidationScriptsPartial" />*@
+    </div>
+</body>
+</html>

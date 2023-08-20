@@ -1,0 +1,54 @@
+﻿@{ 
+    var selected = ViewData["selected"]?.ToString()?.ToLower();
+}
+
+
+<header class="main-header">
+
+    <a href="/admin/index.html" class="logo">
+
+        <span class="logo-mini">پنل</span>
+
+        <span class="logo-lg"><b>کنترل پنل مدیریت</b></span>
+    </a>
+
+</header>
+
+<aside class="main-sidebar">
+
+    <section class="sidebar">
+       
+        <ul class="sidebar-menu" data-widget="tree">
+
+            <li class="@(selected=="index"?"active":null)">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <i class="fa fa-dashboard"></i> <span>خانه</span>
+
+                </a>
+            </li>
+
+            <li class="@(selected=="category"?"active":null)">
+                <a asp-area="Admin" asp-controller="Category" asp-action="Index">
+                    <i class="fa fa-th"></i> <span>دسته بندی ها</span>
+
+                </a>
+            </li>
+
+
+            <li class="@(selected=="books"?"active":null)">
+                <a asp-area="Admin" asp-controller="Book" asp-action="Index">
+                    <i class="fa fa-th"></i> <span>مدیریت کتاب ها</span>
+
+                </a>
+            </li>
+
+            <li class="@(selected=="users"?"active":null)">
+                <a asp-area="Admin" asp-controller="User" asp-action="Index">
+                    <i class="fa fa-th"></i> <span>مدیریت کاربران</span>
+
+                </a>
+            </li>
+        </ul>    
+    </section>
+
+</aside>

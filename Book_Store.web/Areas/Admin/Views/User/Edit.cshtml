@@ -1,0 +1,54 @@
+﻿
+@model Book_Store.web.Areas.Admin.Models.User.EditUserViewModel
+@{
+    ViewData["title"] = "ویرایش کاربر";
+    ViewData["selected"] = "users";
+
+}
+
+<section class="content-header">
+    <h1>
+        @ViewData["title"]
+    </h1>
+    <ol class="breadcrumb">
+        <li><a asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li><a asp-area="Admin" asp-controller="User" asp-action="Index">کاربران</asp-area="Admin"></a></li>
+        <li class="active">@ViewData["title"]</li>
+    </ol>
+</section>
+<section class="content">
+    <form class="box box-danger" method="post" asp-area="Admin" asp-controller="User" asp-action="Edit">
+        <div class="box-body row">
+            <div class="col-md-6">
+                @Html.EditorFor(m => m.FullName)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(m => m.Email)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(m => m.Password)
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Role"></label>
+                    <select asp-for="Role" class="form-control">
+                        <option value="null">انتخاب کنید</option>
+                        <option value="0">مدیر</option>
+                        <option value="1">مشتری</option>
+                    </select>
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(m => m.Address)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(m => m.Tel)
+            </div>
+
+        </div>
+        <div class="box-footer">
+            <button class="btn btn-success" type="submit">ثبت اطلاعات</button>
+        </div>
+    </form>
+</section>

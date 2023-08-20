@@ -1,0 +1,133 @@
+﻿@using Book_Store.CoreLayer.Services.Ctegories
+@using Book_Store.DataLayer.Context
+@using System.Security.Claims;
+
+@inject ICategoryService _categoryService;
+@inject DataBaseContext _context;
+@{
+    var categories = _categoryService.GetAllCategory();
+    var CurrentUserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/9f5151c8fb.js" crossorigin="anonymous"></script>
+    <title>فروشگاه آنلاین لوتوس کتاب</title>
+    <link href="/css/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="header1-container">
+            <div class="header1">
+                <a href="/" style="margin-left: auto;">
+                    <div class="home"><i class="fas fa-home fa-xl"></i></div>
+                </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @await Component.InvokeAsync("CartComponent")
+                    if (_context.Users.Any(u => u.Id == CurrentUserId && u.Role == 0))
+                    {
+                        <a asp-area="Admin" asp-controller="Home" asp-action="Index" style="margin:0 10px">پنل مدیریت</a>
+                    }
+                    
+                    <a href="/Auth/logout">خروج
+                        <i class="fa fa-sign-out fa-xl"></i>
+                    </a>
+                }
+                else
+                {
+                    <a asp-page="auth/login">
+                        <div class="login">
+                            <i class="fa fa-user-circle-o fa-xl"></i>
+                            ورود / ثبت نام
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+
+        <div class="header2-container">
+            <div class="header2">
+
+                <div class="search">
+                    <form action="/search">
+                        <input class="input-s" name="q" type="text" placeholder=" نام کتاب">
+                        <button class="button-s" type="submit">جستجو</button>
+                    </form>
+                </div>
+                <div style="margin-right:auto" class="logo">
+                    <a href="/"><img src="/img/logo.png" width="150px"></a>
+                </div>
+            </div>
+        </div>
+
+        <partial name="_menu" model="categories" />
+
+        @RenderBody()
+
+        <div class="social">
+            <p>ما را دنبال کنید.</p>
+            <a href="https://web.whatsapp.com/" target="_blank"><i class="fa fa-whatsapp fa-2xl"></i></a>
+            <a href="https://instagram.com/" target="_blank"><i class="fa fa-instagram fa-2xl"></i></a>
+            <a href="https://web.telegram.com/" target="_blank"><i class="fa fa-telegram fa-2xl"></i></a>
+
+        </div>
+
+        <div class="footer-container">
+            <div class="footer">
+                <div class="footer-right">
+                    <ul class="footer-khadamat">
+                        <li class="li-footer">خدمات مشتریان</li>
+                        <a href="/BenefitsBook">
+                        <li>فواید کتاب خواندن</li></a>
+                        <a href="/Guide">
+                        <li>راهنمای ثبت سفارش</li></a>
+                    </ul>
+
+                </div>
+
+                <div class="footer-medium">
+                    <ul class="footer-ertebat">
+                        <li class="li-footer">تماس با ما</li>
+                        <li>
+                            <i class="fa fa fa-map-marker fa-l"></i>
+                            <small>
+                                یزد-شهرک آزادشهر-خیابان واعظ-خیابان مخابرات-آموزشکده حضرت رقیه(س)
+                            </small>
+                        </li>
+                        <li>
+                            <i class="fa fa-phone fa-l"></i>
+                            <small>
+                                035-37215100
+                            </small>
+                        </li>
+                        <li>
+                            <i class="fa fa-mobile-phone fa-l"></i>
+                            <small>09393533884</small>
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope-o fa-l"></i>
+                            <small>
+                                najme.hakimianfar@gmail.com
+                            </small>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="footer-left">
+                    <a href="https://enamad.ir/" target="_blank"><img src="/img/namad.jfif"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/javascript.js"></script>
+    <script src="/js/Custom.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿@{ 
+    ViewData["selected"] = "index";
+
+}
+
+<section class="content-header">
+    <h1>
+        صفحه خوش آمد گویی
+    </h1>
+
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li class="active">صفحه خوش آمد گویی</li>
+    </ol>
+</section>
+
+<section class="content">
+
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">به نام خدا</h3>
+
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+                        title="جمع شود">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="حذف">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <h2>مدیر محترم <big style="color: #007bff;">@User.Identity.Name</big> خوش آمدید!</h2>
+            <p>اینجا مکانی است که مدیریت سایت را به عهده دارید.</p>
+            <p>امیدواریم که تجربه‌ی موفقیت‌آمیزی داشته باشید.</p>
+        </div>
+        <div class="box-footer">
+            
+        </div>
+    </div>
+
+</section>

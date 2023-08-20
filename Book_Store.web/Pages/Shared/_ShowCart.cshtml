@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Book_Store.CoreLayer.DTOs.Orders.OrderDto>
+@using Book_Store.CoreLayer.Utilities
+@using System.Security.Claims;
+
+@if (Model.Any())
+{
+    <div class="login-container">
+        <div class="login">
+            <ul>
+                <li>
+                    <p style="color:#fff;margin-left:10px">@User.Identity.Name</p>
+                    <ul>
+                        @foreach (var item in Model)
+                        {
+                            <li>
+                                <img src="@Directories.GetBookImage(item.ImageName)" alt="@item.Name" width="50px" style="margin-bottom:5px" />
+                                <h5>@item.Name</h5>
+                                <h5>@item.Count</h5>
+                            </li>
+                        }
+                    </ul>
+                </li>
+                <li><a style="margin-right:10px;" asp-area="Admin" asp-controller="Order" asp-action="Index">نمایش فاکتور</a></li>
+                
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div style="color:#fff">
+        <p style="color:#fff">
+            @User.Identity.Name
+            <span style="margin-right:10px">
+                سبد خرید شما خالی است
+            </span>
+        </p>
+    </div>
+}
+

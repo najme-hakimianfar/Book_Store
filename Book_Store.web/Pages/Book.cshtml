@@ -1,0 +1,68 @@
+﻿@page "{slug}"
+@model Book_Store.web.Pages.BookModel
+@using Book_Store.CoreLayer.Utilities
+@{
+
+    ViewData["Title"] = Model.Book.Name;
+    var location = $"/Book/{@Model.Book.Slug}";
+}
+<div class="container-book">
+    <div class="book">
+
+        <img src="@Directories.GetBookImage(Model.Book.ImageName)" alt="@Model.Book.Name" />
+
+        <div class="medium">
+            <h3>@Model.Book.Name</h3></br>
+            <div class="Attributes">
+                <p>ویژگی های کتاب</p></br>
+                انتشارات : @Model.Book.Publisher</br>
+                نویسنده : @Model.Book.Writer </br>
+                مترجم : @Model.Book.Translator</br>
+                سال انتشار : @Model.Book.PYear</br>
+                تعداد صفحه : @Model.Book.NumberPage</br>
+                اندازه : @Model.Book.Size</br>
+                جلد : @Model.Book.CoverType</br>
+                وزن : @Model.Book.Weight گرم</br></br>
+            </div>
+        </div>
+        <div class="left">
+            <p>قیمت کتاب :</p>
+            <p>@Model.Book.Price ریال</p></br>
+            <a class="button-i" type="submit" asp-area="Admin" asp-controller="Order" asp-action="AddToCart"
+               asp-route-bookId="@Model.Book.BookId" asp-route-location="@location">افزودن به سبد</a>
+        </div>
+</div>
+    <div class="container-comment">
+        <div class="matncomment">
+            <h3>@Model.Comments.Count دیدگاه</h3>
+            <ul>
+                @foreach (var comment in Model.Comments)
+                {
+                    <li>
+                        
+                        <h5><i class="fa fa-user-circle-o fa-2x" style="margin:20px"></i>@comment.UserFullName&nbsp;&nbsp;&nbsp;&nbsp;@comment.CreationDate.ToShortDateString()</h5>
+                        <p style="font-size:17px;margin-bottom:20px">@comment.Text</p>
+                    </li>
+                }
+            </ul>
+        </div>
+
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="comment">
+                <form method="post">
+                    <input type="hidden" asp-for="BookId" value="@Model.Book.BookId" />
+                    <label asp-for="Text"></label>
+                    <textarea asp-for="Text" rows="5" cols="110"></textarea>
+                    <span asp-validation-for="Text" style="color:red;font-size:13px;font-weight:bold"></span>
+                    <input class="button-i" type="submit" value="ارسال دیدگاه" />
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="danger">برای ثبت نظر باید ثبت نام کنید.</div>
+        }
+    </div>
+</div>

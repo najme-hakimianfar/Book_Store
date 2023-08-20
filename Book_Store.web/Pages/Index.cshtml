@@ -1,0 +1,110 @@
+﻿@page
+@using Book_Store.CoreLayer.Utilities
+@model IndexModel
+@{
+    var location = "/";
+    ViewData["Title"] = "Home page";
+}
+<div class="slider">
+    <div class="slide active">
+        <img src="/img/book6.jpg">
+    </div>
+
+    <div class="slide">
+        <img src="/img/book7.jpg">
+    </div>
+
+    <div class="slide">
+        <img src="/img/book8.jpg">
+    </div>
+
+    <a href="#" class="prev">&#10094; </a>
+    <a href="#" class="next">&#10095; </a>
+</div>
+@if (Model.MainPageData.LatestBook.Any())
+{
+    <div class="title-container">
+        <div class="title">
+            <div>تازه های لوتوس کتاب</div>
+        </div>
+        <hr />
+
+    </div>
+    
+
+    <div class="best-container">
+        <div class="best">
+            @foreach (var item in Model.MainPageData.LatestBook)
+            {
+                <div class="item-best">
+                    <a asp-page="Book" asp-route-slug="@item.Slug">
+                        <img src="@Directories.GetBookImage(item.ImageName)" alt="@item.Name" width="150px">
+                    </a>
+                    <a asp-page="Book" asp-route-slug="@item.Slug"><p>@item.Name</p></a>
+                    <p>@item.Price ریال</p>
+
+                    <a class="button-i" asp-area="Admin" asp-controller="Order" asp-action="AddToCart" asp-route-bookId="@item.BookId" asp-route-location="@location" style="color: #fff; text-decoration: none;">افزودن به سبد</a>
+                </div>
+            }
+
+        </div>
+    </div>
+}
+
+<div class="title-container">
+    <div class="title">
+        <div>کتاب های ویژه</div>
+    </div>
+    <hr />
+
+</div>
+
+<div class="discount-container">
+    <div class="discount">
+        @foreach (var item in Model.MainPageData.SpecialBook)
+        {
+            <div class="item-discount">
+                <a asp-page="Book" asp-route-slug="@item.Slug">
+                    <img src="@Directories.GetBookImage(item.ImageName)" alt="@item.Name" width="150px">
+                </a>
+                <a asp-page="Book" asp-route-slug="@item.Slug"><p>@item.Name</p></a>
+                <p>@item.Price ریال</p>
+                <a class="button-i" asp-area="Admin" asp-controller="Order" asp-action="AddToCart" asp-route-bookId="@item.BookId" asp-route-location="@location" style="color: #fff; text-decoration: none;">افزودن به سبد</a>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+<div class="title-container">
+    <div class="title">
+        <div>تخفیف های شگفت انگیز</div>
+    </div>
+    <hr />
+
+</div>
+
+<div class="discount-container">
+    <div class="discount">
+        @foreach (var item in Model.MainPageData.DiscountBook)
+        {
+            <div class="item-discount">
+                <a asp-page="Book" asp-route-slug="@item.Slug">
+                    <img src="@Directories.GetBookImage(item.ImageName)" alt="@item.Name" width="150px">
+                </a>
+                <a asp-page="Book" asp-route-slug="@item.Slug"><p>@item.Name</p></a>
+                <del>@item.Price ریال</del>
+                @{
+                    var result = item.Price - item.Discount;
+                }
+                <p>@result ریال</p>
+                <a class="button-i" asp-area="Admin" asp-controller="Order" asp-action="AddToCart" asp-route-bookId="@item.BookId" asp-route-location="@location"  style="color: #fff; text-decoration: none;">افزودن به سبد</a>
+
+            </div>
+        }
+
+    </div>
+
+</div>

@@ -1,0 +1,32 @@
+﻿@model List<Book_Store.CoreLayer.DTOs.Categories.CategoryDto>
+<div class="header3-container">
+    <div class="header3">
+        <nav class="menu">
+            <ul class="ul">
+
+                @foreach (var category in Model.Where(p=> p.ParentId==null))
+                {
+                    var hasChild = Model.Any(p => p.ParentId == category.Id);
+                    if (hasChild)
+                    {
+                        <li class="li">
+                            <p><a href="/search?categorySlug=@category.Slug">@category.Title</a></p>
+                            <ul>
+                                @foreach (var child in Model.Where(p => p.ParentId == category.Id))
+                                {
+
+                                    <li><a href="/search?categorySlug=@child.Slug">@child.Title</a></li>
+                                }
+
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="li"><a href="/search?categorySlug=@category.Slug">@category.Title</a></li>
+                    }
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
